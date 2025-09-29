@@ -75,19 +75,19 @@ test.describe("AI Writer Editor E2E Tests", () => {
     await page.setViewportSize({ width: 375, height: 667 });
     await page.goto("/");
 
-    await expect(page.locator("h1")).toBeVisible();
+    await expect(page.getByTestId("editor-container")).toBeVisible();
 
     // Test tablet viewport (iPad-like)
     await page.setViewportSize({ width: 768, height: 1024 });
     await page.goto("/");
 
-    await expect(page.locator("h1")).toBeVisible();
+    await expect(page.getByTestId("editor-container")).toBeVisible();
 
     // Test desktop viewport
     await page.setViewportSize({ width: 1920, height: 1080 });
     await page.goto("/");
 
-    await expect(page.locator("h1")).toBeVisible();
+    await expect(page.getByTestId("editor-container")).toBeVisible();
   });
 
   test("should not have console errors or warnings", async ({ page }) => {

@@ -147,7 +147,7 @@ test.describe("Editor Functionality E2E Tests", () => {
     ).toBeVisible();
 
     // Should contain keyboard shortcut info
-    await expect(page.locator("text=Word")).toBeVisible();
+    await expect(page.locator("text=Word").first()).toBeVisible();
     await expect(page.locator("text=Para ↑")).toBeVisible();
   });
 
@@ -156,11 +156,13 @@ test.describe("Editor Functionality E2E Tests", () => {
 
     await editor.click();
     await page.keyboard.type("Line 1");
+    // Ensure cursor is at the end
+    await page.keyboard.press("End");
     await page.keyboard.press("Enter");
     await page.keyboard.type("Line 2");
 
     // Should contain both lines with line break
-    const content = await editor.textContent();
+    const content = await editor.innerText();
     expect(content).toContain("Line 1\nLine 2");
   });
 

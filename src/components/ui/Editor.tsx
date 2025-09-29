@@ -216,27 +216,8 @@ export const Editor: React.FC<EditorProps> = ({
         }
       }
 
-      if (e.key === "Enter" && !e.shiftKey) {
-        e.preventDefault();
-
-        const selection = window.getSelection();
-        if (selection && selection.rangeCount > 0) {
-          const range = selection.getRangeAt(0);
-          range.deleteContents();
-
-          const lineBreak = document.createTextNode("\n");
-          range.insertNode(lineBreak);
-
-          range.setStartAfter(lineBreak);
-          range.collapse(true);
-
-          selection.removeAllRanges();
-          selection.addRange(range);
-
-          const event = new Event("input", { bubbles: true });
-          editorRef.current?.dispatchEvent(event);
-        }
-      }
+      // Let Enter create default line breaks (<br> or <div>)
+      // The getTextContent function will handle converting <br> to \n
     },
     [disabled],
   );

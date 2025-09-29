@@ -8,7 +8,28 @@ import type { CursorPosition } from "~/types/editor";
  * Get the plain text content from a ContentEditable element
  */
 export function getTextContent(element: HTMLElement): string {
-  return element.textContent || "";
+  // Handle <br> and <div> elements by converting them to \n
+  const cloned = element.cloneNode(true) as HTMLElement;
+
+  // Replace <br> with \n
+  const brs = cloned.querySelectorAll("br");
+  brs.forEach((br) => {
+    const textNode = document.createTextNode("\n");
+    br.parentNode?.replaceChild(textNode, br);
+  });
+
+  // Replace <div> with \n (except for the last one if it's empty)
+  const divs = cloned.querySelectorAll("div");
+  divs.forEach((div) => {
+    const textNode = document.createTextNode("\n");
+    div.parentNode?.replaceChild(textNode, div);
+    // Move the div's children before the text node
+    while (div.firstChild) {
+      textNode.parentNode?.insertBefore(div.firstChild, textNode);
+    }
+  });
+
+  return cloned.textContent || "";
 }
 
 /**

@@ -42,7 +42,7 @@ This is a sample text to demonstrate the ContentEditable editor with proper curs
 
 Try using Ctrl+Home to jump to the beginning, Ctrl+End to jump to the end, and Ctrl+Arrow keys for word navigation.`;
 
-    setContent(sampleText);
+    handleContentChange(sampleText);
   };
 
   const clearEditor = () => {
