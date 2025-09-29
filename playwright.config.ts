@@ -10,6 +10,7 @@ export default defineConfig({
   use: {
     baseURL: "http://localhost:3000", // Default app URL for tests
     trace: "on-first-retry", // Capture traces for debugging failures
+    headless: true, // Run browsers in headless mode
   },
 
   // Test across multiple browsers for comprehensive coverage
@@ -35,7 +36,8 @@ export default defineConfig({
     reuseExistingServer: !process.env.CI, // Reuse server locally, fresh in CI
     env: {
       SKIP_ENV_VALIDATION: "true", // Skip env validation for testing
-      DATABASE_URL: "postgresql://test:test@localhost:5432/testdb", // Test database
+      DATABASE_URL:
+        "postgresql://postgres:2HpXkw37obo12dgS@localhost:5432/ai-writer", // Use local working database
     },
   },
 });

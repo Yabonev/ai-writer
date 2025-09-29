@@ -59,7 +59,7 @@ test.describe("Homepage E2E Tests", () => {
       }
     } else {
       // If no nav links, just verify page is interactive
-      await expect(page.locator("main, body")).toBeVisible();
+      await expect(page.locator("main")).toBeVisible();
     }
   });
 
