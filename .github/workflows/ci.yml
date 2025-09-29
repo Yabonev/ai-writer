@@ -14,9 +14,41 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # Job 1: Code Quality Checks (No database needed)
+  # Job 1: Code Quality Checks (No database or Prisma needed)
   code-quality:
     name: Code Quality
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Generate Prisma client only for TypeScript checking
+      # (TypeScript needs to resolve @prisma/client imports)
+      - name: Generate Prisma client for TypeScript
+        run: npx prisma generate
+
+      # Run all code quality checks in parallel
+      - name: Run code quality checks
+        run: |
+          npm run lint &
+          npm run format:check &
+          npm run typecheck &
+          wait
+
+  # Job 2: Unit Tests (Types only - no database needed)
+  unit-tests:
+    name: Unit Tests
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
@@ -33,64 +65,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Generate Prisma client
+      # Generate Prisma client for types (unit tests use mocked Prisma)
+      - name: Generate Prisma client for types
         run: npx prisma generate
 
-      # Run all code quality checks in parallel using npm-run-all
-      - name: Run code quality checks
-        run: |
-          npm run lint &
-          npm run format:check &
-          npm run typecheck &
-          wait
-
-  # Job 2: Unit Tests (With database)
-  unit-tests:
-    name: Unit Tests
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-
-    services:
-      postgres:
-        image: postgres:15
-        env:
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: testdb
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          - 5432:5432
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: "npm"
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Generate Prisma client
-        run: npx prisma generate
-        env:
-          DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/testdb"
-
-      - name: Run database migrations
-        run: npx prisma db push
-        env:
-          DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/testdb"
-
-      - name: Run unit and integration tests
+      - name: Run unit tests
         run: npm run test:run
-        env:
-          DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/testdb"
 
       - name: Upload test coverage
         uses: actions/upload-artifact@v4
@@ -100,7 +80,7 @@ jobs:
           path: coverage/
           retention-days: 30
 
-  # Job 3: E2E Tests (With database)
+  # Job 3: E2E Tests (Requires database for real app testing)
   e2e-tests:
     name: E2E Tests
     runs-on: ubuntu-latest
@@ -133,13 +113,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Generate Prisma client
-        run: npx prisma generate
-        env:
-          DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/testdb"
-
-      - name: Run database migrations
-        run: npx prisma db push
+      - name: Generate Prisma client and setup database
+        run: |
+          npx prisma generate
+          npx prisma db push
         env:
           DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/testdb"
 
@@ -161,7 +138,7 @@ jobs:
             playwright-report/
           retention-days: 30
 
-  # Job 4: Build Verification (With database for env validation)
+  # Job 4: Build Verification (Requires database for Next.js build validation)
   build:
     name: Build Verification
     runs-on: ubuntu-latest
@@ -194,7 +171,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Generate Prisma client
+      - name: Generate Prisma client for build
         run: npx prisma generate
         env:
           DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/testdb"
