@@ -36,8 +36,10 @@ export default defineConfig({
     reuseExistingServer: !process.env.CI, // Reuse server locally, fresh in CI
     env: {
       SKIP_ENV_VALIDATION: "true", // Skip env validation for testing
-      DATABASE_URL:
-        "postgresql://postgres:2HpXkw37obo12dgS@localhost:5432/ai-writer", // Use local working database
+      // Database URL is passed from environment - CI sets this to test DB, local uses .env
+      ...(process.env.DATABASE_URL && {
+        DATABASE_URL: process.env.DATABASE_URL,
+      }),
     },
   },
 });
