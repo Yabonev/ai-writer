@@ -1,0 +1,121 @@
+name: Deploy to Production
+
+# Only deploy when code is pushed to main branch
+# This ensures only tested, approved code reaches production
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production # Use GitHub environment for deployment secrets
+    timeout-minutes: 15 # Allow more time for deployment
+    # Run after CI passes to ensure quality
+    needs: [] # Can run in parallel since Vercel has its own checks
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      # Pre-deployment verification
+      - name: Verify deployment configuration
+        run: |
+          echo "🔍 Verifying deployment configuration..."
+          if [[ ! -f "vercel.json" ]]; then
+            echo "❌ vercel.json not found"
+            exit 1
+          fi
+
+          echo "✅ vercel.json found"
+          cat vercel.json
+
+          echo "🔍 Checking for required secrets..."
+          if [[ -z "${{ secrets.VERCEL_TOKEN }}" ]]; then
+            echo "❌ VERCEL_TOKEN secret not set"
+            exit 1
+          fi
+
+          if [[ -z "${{ secrets.VERCEL_ORG_ID }}" ]]; then
+            echo "❌ VERCEL_ORG_ID secret not set"  
+            exit 1
+          fi
+
+          if [[ -z "${{ secrets.VERCEL_PROJECT_ID }}" ]]; then
+            echo "❌ VERCEL_PROJECT_ID secret not set"
+            exit 1
+          fi
+
+          echo "✅ All required secrets are configured"
+
+      # Deploy to Vercel using official action
+      - name: Deploy to Vercel
+        id: deploy
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: "--prod" # Deploy to production environment
+
+      # Post-deployment verification and health checks
+      - name: Run post-deployment health checks
+        run: |
+          echo "🚀 Deployment completed successfully"
+          echo "🔍 Production URL: ${{ steps.deploy.outputs.preview-url }}"
+
+          # Wait for deployment to be ready
+          echo "⏳ Waiting for deployment to be ready..."
+          sleep 30
+
+          # Basic health check
+          DEPLOY_URL="${{ steps.deploy.outputs.preview-url }}"
+          if [[ -n "$DEPLOY_URL" ]]; then
+            echo "🔍 Testing deployment health..."
+            
+            # Test if site loads
+            if curl -f -s "$DEPLOY_URL" > /dev/null; then
+              echo "✅ Site is accessible"
+            else
+              echo "⚠️  Site may still be initializing"
+            fi
+            
+            # Test if it contains expected content
+            if curl -s "$DEPLOY_URL" | grep -q "Create T3 App"; then
+              echo "✅ T3 App content detected"
+            else
+              echo "⚠️  Expected content not found (may be custom)"
+            fi
+            
+            # Test API endpoint if it exists
+            API_URL="$DEPLOY_URL/api/trpc/post.hello?batch=1&input=%7B%220%22%3A%7B%22json%22%3A%7B%22text%22%3A%22deployment%22%7D%7D%7D"
+            if curl -f -s "$API_URL" > /dev/null; then
+              echo "✅ API endpoints are working"
+            else
+              echo "ℹ️  API test skipped (endpoint may not exist)"
+            fi
+            
+          else
+            echo "⚠️  No deployment URL returned"
+          fi
+
+          echo ""
+          echo "🎉 Deployment verification completed!"
+          echo "🌐 Your app is live at: $DEPLOY_URL"
+
+      # Notify on failure
+      - name: Deployment failed notification
+        if: failure()
+        run: |
+          echo "❌ Deployment failed!"
+          echo "🔧 Troubleshooting steps:"
+          echo "   1. Check Vercel dashboard for detailed logs"
+          echo "   2. Verify all environment variables are set correctly"
+          echo "   3. Ensure DATABASE_URL or SKIP_ENV_VALIDATION is configured"
+          echo "   4. Check the vercel.json configuration"

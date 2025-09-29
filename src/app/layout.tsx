@@ -21,7 +21,9 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${geist.variable}`}>
-      <body>
+      {/* suppressHydrationWarning prevents warnings from browser extensions 
+          that modify the DOM (like clipboard managers, password managers, etc.) */}
+      <body suppressHydrationWarning>
         <TRPCReactProvider>{children}</TRPCReactProvider>
       </body>
     </html>

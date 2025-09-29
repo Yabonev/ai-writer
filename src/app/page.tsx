@@ -43,6 +43,9 @@ export default async function Home() {
             <p className="text-2xl text-white">
               {hello ? hello.greeting : "Loading tRPC query..."}
             </p>
+            <div className="mt-4 rounded-lg bg-green-500/20 px-4 py-2 text-green-400">
+              ✅ CI/CD Pipeline Active - Enterprise Grade Quality Gates
+            </div>
           </div>
 
           <LatestPost />

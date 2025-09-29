@@ -1,0 +1,28 @@
+#!/usr/bin/env sh
+# Pre-commit quality gates - runs automatically before each commit
+# This ensures all committed code meets quality standards
+
+echo "🔍 Running pre-commit quality checks..."
+
+# Step 1: TypeScript type checking
+echo "📝 Checking TypeScript types..."
+npm run typecheck || {
+  echo "❌ TypeScript errors found. Fix them before committing."
+  exit 1
+}
+
+# Step 2: ESLint code quality
+echo "🔍 Running ESLint..."
+npm run lint || {
+  echo "❌ ESLint errors found. Run 'npm run lint:fix' to auto-fix."
+  exit 1
+}
+
+# Step 3: Staged files formatting and linting
+echo "✨ Running lint-staged..."
+npx lint-staged || {
+  echo "❌ Lint-staged failed. Check the output above."
+  exit 1
+}
+
+echo "✅ All pre-commit checks passed!"

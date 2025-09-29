@@ -1,0 +1,13 @@
+# Generated files
+.next/
+coverage/
+test-results/
+playwright-report/
+node_modules/
+*.tsbuildinfo
+package-lock.json
+
+# Build outputs
+dist/
+build/
+out/
