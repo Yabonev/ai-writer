@@ -1,0 +1,269 @@
+
+> ai-writer@0.1.0 dev
+> next dev --turbo
+
+   ▲ Next.js 15.5.4 (Turbopack)
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.0.102:3000
+   - Environments: .env
+
+ ✓ Starting...
+ ✓ Ready in 2.1s
+ ○ Compiling / ...
+ ✓ Compiled / in 2.8s
+[TRPC] post.hello took 274ms to execute
+prisma:error 
+Invalid `ctx.db.post.findFirst()` invocation in
+/Users/yabo/Documents/Code/ai-writer/.next/server/chunks/ssr/[root-of-the-server]__b1beb8e6._.js:225:40
+
+  222     });
+  223 }),
+  224 getLatest: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$server$2f$api$2f$trpc$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["publicProcedure"].query(async ({ ctx })=>{
+→ 225     const post = await ctx.db.post.findFirst(
+Authentication failed against database server, the provided database credentials for `postgres` are not valid.
+
+Please make sure to provide valid database credentials for the database server at the configured address.
+[TRPC] post.getLatest took 308ms to execute
+A query that was dehydrated as pending ended up rejecting. [[["post","getLatest"],{"type":"query"}]]: TRPCError: 
+Invalid `ctx.db.post.findFirst()` invocation in
+/Users/yabo/Documents/Code/ai-writer/.next/server/chunks/ssr/[root-of-the-server]__b1beb8e6._.js:225:40
+
+  222     });
+  223 }),
+  224 getLatest: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$server$2f$api$2f$trpc$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["publicProcedure"].query(async ({ ctx })=>{
+→ 225     const post = await ctx.db.post.findFirst(
+Authentication failed against database server, the provided database credentials for `postgres` are not valid.
+
+Please make sure to provide valid database credentials for the database server at the configured address.; The error will be redacted in production builds
+ ⨯ [Error: redacted] { digest: '4208835734' }
+[Error: redacted] { environmentName: 'Server', digest: '4208835734' }
+ ⨯ unhandledRejection: [Error: redacted] { environmentName: 'Server', digest: '4208835734' }
+ ⨯ unhandledRejection:  [Error: redacted] { environmentName: 'Server', digest: '4208835734' }
+ GET / 500 in 4511ms
+[TRPC] post.hello took 393ms to execute
+prisma:error 
+Invalid `ctx.db.post.findFirst()` invocation in
+/Users/yabo/Documents/Code/ai-writer/.next/server/chunks/ssr/[root-of-the-server]__b1beb8e6._.js:225:40
+
+  222     });
+  223 }),
+  224 getLatest: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$server$2f$api$2f$trpc$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["publicProcedure"].query(async ({ ctx })=>{
+→ 225     const post = await ctx.db.post.findFirst(
+Authentication failed against database server, the provided database credentials for `postgres` are not valid.
+
+Please make sure to provide valid database credentials for the database server at the configured address.
+[TRPC] post.getLatest took 363ms to execute
+A query that was dehydrated as pending ended up rejecting. [[["post","getLatest"],{"type":"query"}]]: TRPCError: 
+Invalid `ctx.db.post.findFirst()` invocation in
+/Users/yabo/Documents/Code/ai-writer/.next/server/chunks/ssr/[root-of-the-server]__b1beb8e6._.js:225:40
+
+  222     });
+  223 }),
+  224 getLatest: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$server$2f$api$2f$trpc$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["publicProcedure"].query(async ({ ctx })=>{
+→ 225     const post = await ctx.db.post.findFirst(
+Authentication failed against database server, the provided database credentials for `postgres` are not valid.
+
+Please make sure to provide valid database credentials for the database server at the configured address.; The error will be redacted in production builds
+ ⨯ [Error: redacted] { digest: '4208835734' }
+[Error: redacted] { environmentName: 'Server', digest: '4208835734' }
+ ⨯ unhandledRejection: [Error: redacted] { environmentName: 'Server', digest: '4208835734' }
+ ⨯ unhandledRejection:  [Error: redacted] { environmentName: 'Server', digest: '4208835734' }
+ GET / 500 in 1203ms
+ ✓ Compiled /api/trpc/[trpc] in 259ms
+prisma:error 
+Invalid `ctx.db.post.findFirst()` invocation in
+/Users/yabo/Documents/Code/ai-writer/.next/server/chunks/[root-of-the-server]__16c7adac._.js:221:40
+
+  218     });
+  219 }),
+  220 getLatest: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$server$2f$api$2f$trpc$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["publicProcedure"].query(async ({ ctx })=>{
+→ 221     const post = await ctx.db.post.findFirst(
+Authentication failed against database server, the provided database credentials for `postgres` are not valid.
+
+Please make sure to provide valid database credentials for the database server at the configured address.
+[TRPC] post.getLatest took 519ms to execute
+❌ tRPC failed on post.getLatest: 
+Invalid `ctx.db.post.findFirst()` invocation in
+/Users/yabo/Documents/Code/ai-writer/.next/server/chunks/[root-of-the-server]__16c7adac._.js:221:40
+
+  218     });
+  219 }),
+  220 getLatest: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$server$2f$api$2f$trpc$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["publicProcedure"].query(async ({ ctx })=>{
+→ 221     const post = await ctx.db.post.findFirst(
+Authentication failed against database server, the provided database credentials for `postgres` are not valid.
+
+Please make sure to provide valid database credentials for the database server at the configured address.
+ GET /api/trpc/post.getLatest?batch=1&input=%7B%220%22%3A%7B%22json%22%3Anull%2C%22meta%22%3A%7B%22values%22%3A%5B%22undefined%22%5D%7D%7D%7D 200 in 1630ms
+prisma:error 
+Invalid `ctx.db.post.findFirst()` invocation in
+/Users/yabo/Documents/Code/ai-writer/.next/server/chunks/[root-of-the-server]__16c7adac._.js:221:40
+
+  218     });
+  219 }),
+  220 getLatest: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$server$2f$api$2f$trpc$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["publicProcedure"].query(async ({ ctx })=>{
+→ 221     const post = await ctx.db.post.findFirst(
+Authentication failed against database server, the provided database credentials for `postgres` are not valid.
+
+Please make sure to provide valid database credentials for the database server at the configured address.
+[TRPC] post.getLatest took 459ms to execute
+❌ tRPC failed on post.getLatest: 
+Invalid `ctx.db.post.findFirst()` invocation in
+/Users/yabo/Documents/Code/ai-writer/.next/server/chunks/[root-of-the-server]__16c7adac._.js:221:40
+
+  218     });
+  219 }),
+  220 getLatest: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$server$2f$api$2f$trpc$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["publicProcedure"].query(async ({ ctx })=>{
+→ 221     const post = await ctx.db.post.findFirst(
+Authentication failed against database server, the provided database credentials for `postgres` are not valid.
+
+Please make sure to provide valid database credentials for the database server at the configured address.
+ GET /api/trpc/post.getLatest?batch=1&input=%7B%220%22%3A%7B%22json%22%3Anull%2C%22meta%22%3A%7B%22values%22%3A%5B%22undefined%22%5D%7D%7D%7D 200 in 767ms
+prisma:error 
+Invalid `ctx.db.post.findFirst()` invocation in
+/Users/yabo/Documents/Code/ai-writer/.next/server/chunks/[root-of-the-server]__16c7adac._.js:221:40
+
+  218     });
+  219 }),
+  220 getLatest: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$server$2f$api$2f$trpc$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["publicProcedure"].query(async ({ ctx })=>{
+→ 221     const post = await ctx.db.post.findFirst(
+Authentication failed against database server, the provided database credentials for `postgres` are not valid.
+
+Please make sure to provide valid database credentials for the database server at the configured address.
+[TRPC] post.getLatest took 361ms to execute
+❌ tRPC failed on post.getLatest: 
+Invalid `ctx.db.post.findFirst()` invocation in
+/Users/yabo/Documents/Code/ai-writer/.next/server/chunks/[root-of-the-server]__16c7adac._.js:221:40
+
+  218     });
+  219 }),
+  220 getLatest: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$server$2f$api$2f$trpc$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["publicProcedure"].query(async ({ ctx })=>{
+→ 221     const post = await ctx.db.post.findFirst(
+Authentication failed against database server, the provided database credentials for `postgres` are not valid.
+
+Please make sure to provide valid database credentials for the database server at the configured address.
+ GET /api/trpc/post.getLatest?batch=1&input=%7B%220%22%3A%7B%22json%22%3Anull%2C%22meta%22%3A%7B%22values%22%3A%5B%22undefined%22%5D%7D%7D%7D 200 in 635ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ✓ Compiled in 368ms
+[TRPC] post.hello took 115ms to execute
+prisma:error 
+Invalid `ctx.db.post.findFirst()` invocation in
+/Users/yabo/Documents/Code/ai-writer/.next/server/chunks/ssr/[root-of-the-server]__b1beb8e6._.js:225:40
+
+  222     });
+  223 }),
+  224 getLatest: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$server$2f$api$2f$trpc$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["publicProcedure"].query(async ({ ctx })=>{
+→ 225     const post = await ctx.db.post.findFirst(
+Authentication failed against database server, the provided database credentials for `postgres` are not valid.
+
+Please make sure to provide valid database credentials for the database server at the configured address.
+[TRPC] post.getLatest took 429ms to execute
+A query that was dehydrated as pending ended up rejecting. [[["post","getLatest"],{"type":"query"}]]: TRPCError: 
+Invalid `ctx.db.post.findFirst()` invocation in
+/Users/yabo/Documents/Code/ai-writer/.next/server/chunks/ssr/[root-of-the-server]__b1beb8e6._.js:225:40
+
+  222     });
+  223 }),
+  224 getLatest: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$server$2f$api$2f$trpc$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["publicProcedure"].query(async ({ ctx })=>{
+→ 225     const post = await ctx.db.post.findFirst(
+Authentication failed against database server, the provided database credentials for `postgres` are not valid.
+
+Please make sure to provide valid database credentials for the database server at the configured address.; The error will be redacted in production builds
+ ⨯ [Error: redacted] { digest: '4208835734' }
+[Error: redacted] { environmentName: 'Server', digest: '4208835734' }
+ ⨯ unhandledRejection: [Error: redacted] { environmentName: 'Server', digest: '4208835734' }
+ ⨯ unhandledRejection:  [Error: redacted] { environmentName: 'Server', digest: '4208835734' }
+ GET / 500 in 1115ms
+prisma:error 
+Invalid `ctx.db.post.findFirst()` invocation in
+/Users/yabo/Documents/Code/ai-writer/.next/server/chunks/[root-of-the-server]__16c7adac._.js:221:40
+
+  218     });
+  219 }),
+  220 getLatest: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$server$2f$api$2f$trpc$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["publicProcedure"].query(async ({ ctx })=>{
+→ 221     const post = await ctx.db.post.findFirst(
+Authentication failed against database server, the provided database credentials for `postgres` are not valid.
+
+Please make sure to provide valid database credentials for the database server at the configured address.
+[TRPC] post.getLatest took 384ms to execute
+❌ tRPC failed on post.getLatest: 
+Invalid `ctx.db.post.findFirst()` invocation in
+/Users/yabo/Documents/Code/ai-writer/.next/server/chunks/[root-of-the-server]__16c7adac._.js:221:40
+
+  218     });
+  219 }),
+  220 getLatest: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$server$2f$api$2f$trpc$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["publicProcedure"].query(async ({ ctx })=>{
+→ 221     const post = await ctx.db.post.findFirst(
+Authentication failed against database server, the provided database credentials for `postgres` are not valid.
+
+Please make sure to provide valid database credentials for the database server at the configured address.
+ GET /api/trpc/post.getLatest?batch=1&input=%7B%220%22%3A%7B%22json%22%3Anull%2C%22meta%22%3A%7B%22values%22%3A%5B%22undefined%22%5D%7D%7D%7D 200 in 648ms
+prisma:error 
+Invalid `ctx.db.post.findFirst()` invocation in
+/Users/yabo/Documents/Code/ai-writer/.next/server/chunks/[root-of-the-server]__16c7adac._.js:221:40
+
+  218     });
+  219 }),
+  220 getLatest: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$server$2f$api$2f$trpc$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["publicProcedure"].query(async ({ ctx })=>{
+→ 221     const post = await ctx.db.post.findFirst(
+Authentication failed against database server, the provided database credentials for `postgres` are not valid.
+
+Please make sure to provide valid database credentials for the database server at the configured address.
+[TRPC] post.getLatest took 287ms to execute
+❌ tRPC failed on post.getLatest: 
+Invalid `ctx.db.post.findFirst()` invocation in
+/Users/yabo/Documents/Code/ai-writer/.next/server/chunks/[root-of-the-server]__16c7adac._.js:221:40
+
+  218     });
+  219 }),
+  220 getLatest: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$server$2f$api$2f$trpc$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["publicProcedure"].query(async ({ ctx })=>{
+→ 221     const post = await ctx.db.post.findFirst(
+Authentication failed against database server, the provided database credentials for `postgres` are not valid.
+
+Please make sure to provide valid database credentials for the database server at the configured address.
+ GET /api/trpc/post.getLatest?batch=1&input=%7B%220%22%3A%7B%22json%22%3Anull%2C%22meta%22%3A%7B%22values%22%3A%5B%22undefined%22%5D%7D%7D%7D 200 in 516ms
+prisma:error 
+Invalid `ctx.db.post.findFirst()` invocation in
+/Users/yabo/Documents/Code/ai-writer/.next/server/chunks/[root-of-the-server]__16c7adac._.js:221:40
+
+  218     });
+  219 }),
+  220 getLatest: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$server$2f$api$2f$trpc$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["publicProcedure"].query(async ({ ctx })=>{
+→ 221     const post = await ctx.db.post.findFirst(
+Authentication failed against database server, the provided database credentials for `postgres` are not valid.
+
+Please make sure to provide valid database credentials for the database server at the configured address.
+[TRPC] post.getLatest took 479ms to execute
+❌ tRPC failed on post.getLatest: 
+Invalid `ctx.db.post.findFirst()` invocation in
+/Users/yabo/Documents/Code/ai-writer/.next/server/chunks/[root-of-the-server]__16c7adac._.js:221:40
+
+  218     });
+  219 }),
+  220 getLatest: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$server$2f$api$2f$trpc$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["publicProcedure"].query(async ({ ctx })=>{
+→ 221     const post = await ctx.db.post.findFirst(
+Authentication failed against database server, the provided database credentials for `postgres` are not valid.
+
+Please make sure to provide valid database credentials for the database server at the configured address.
+ GET /api/trpc/post.getLatest?batch=1&input=%7B%220%22%3A%7B%22json%22%3Anull%2C%22meta%22%3A%7B%22values%22%3A%5B%22undefined%22%5D%7D%7D%7D 200 in 737ms
+
+-----
+[1m[31mFATAL[39m[0m: An unexpected Turbopack error occurred. A panic log has been written to /var/folders/kw/txh147qj78v92948zblcdr6r0000gn/T/next-panic-a38ca67e9bebcdbd556ea7aa37c80b5f.log.
+
+To help make Turbopack better, report this error by ]8;;https://github.com/vercel/next.js/discussions/new?category=turbopack-error-report&title=Turbopack%20Error%3A%20Next.js%20package%20not%20found&body=Turbopack%20version%3A%20%60v15.5.3-10-g26d61f1e9%60%0ANext.js%20version%3A%20%600.0.0%60%0A%0AError%20message%3A%0A%60%60%60%0ANext.js%20package%20not%20found%0A%0ADebug%20info%3A%0A-%20Execution%20of%20get_entrypoints_with_issues_operation%20failed%0A-%20Execution%20of%20EntrypointsOperation%3A%3Anew%20failed%0A-%20Execution%20of%20Project%3A%3Aentrypoints%20failed%0A-%20Execution%20of%20AppProject%3A%3Aroutes%20failed%0A-%20Execution%20of%20directory_tree_to_entrypoints_internal%20failed%0A-%20Execution%20of%20directory_tree_to_loader_tree%20failed%0A-%20Execution%20of%20get_next_package%20failed%0A-%20Next.js%20package%20not%20found%0A%60%60%60&labels=Turbopack,Turbopack%20Panic%20Backtrace\clicking here.]8;;\
+-----
+
+Error [TurbopackInternalError]: Next.js package not found
+
+Debug info:
+- Execution of get_entrypoints_with_issues_operation failed
+- Execution of EntrypointsOperation::new failed
+- Execution of Project::entrypoints failed
+- Execution of AppProject::routes failed
+- Execution of directory_tree_to_entrypoints_internal failed
+- Execution of directory_tree_to_loader_tree failed
+- Execution of get_next_package failed
+- Next.js package not found
+    at <unknown> (TurbopackInternalError: Next.js package not found) {
+  location: undefined
+}
+[?25h

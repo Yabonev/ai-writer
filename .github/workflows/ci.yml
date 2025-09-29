@@ -1,0 +1,103 @@
+name: CI Quality Gates
+
+# Trigger on pull requests and pushes to main branch
+# This ensures all code changes are validated before merge
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+# Cancel in-progress runs when new commits are pushed
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality-checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30 # Prevent runaway builds
+
+    # PostgreSQL service for database-dependent tests
+    # This provides a real database environment for integration tests
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: testdb
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20 # Use Node 20 LTS for stability
+          cache: "npm" # Cache npm dependencies for speed
+
+      - name: Install dependencies
+        run: npm ci # Use ci for faster, deterministic installs
+
+      # Generate Prisma client for database operations
+      - name: Generate Prisma client
+        run: npx prisma generate
+        env:
+          DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/testdb"
+
+      # Set up database schema for testing
+      - name: Run database migrations
+        run: npx prisma db push
+        env:
+          DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/testdb"
+
+      # Code quality checks - run in parallel for speed
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Check Prettier formatting
+        run: npm run format:check
+
+      - name: Type check with TypeScript
+        run: npm run typecheck
+
+      # Testing phase
+      - name: Run unit and integration tests
+        run: npm run test:run
+        env:
+          DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/testdb"
+
+      # E2E testing setup and execution
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Run E2E tests
+        run: npm run test:e2e
+        env:
+          DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/testdb"
+
+      # Final build verification
+      - name: Build application
+        run: npm run build
+        env:
+          DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/testdb"
+
+      # Archive test results and artifacts
+      - name: Upload test results and coverage
+        uses: actions/upload-artifact@v4
+        if: always() # Upload even if tests fail
+        with:
+          name: test-results-${{ github.run_id }}
+          path: |
+            test-results/         # Playwright test results
+            coverage/             # Vitest coverage reports
+            playwright-report/    # Playwright HTML report
+          retention-days: 30 # Keep artifacts for 30 days
