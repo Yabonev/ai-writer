@@ -12,6 +12,20 @@ describe("Component Testing Setup", () => {
     expect(screen.getByText("Hello Test World")).toBeInTheDocument();
   });
 
+  it("can render CI/CD status indicator", () => {
+    render(
+      <div className="rounded-lg bg-green-500/20 px-4 py-2 text-green-400">
+        ✅ CI/CD Pipeline Active - Enterprise Grade Quality Gates
+      </div>,
+    );
+
+    expect(
+      screen.getByText(
+        "✅ CI/CD Pipeline Active - Enterprise Grade Quality Gates",
+      ),
+    ).toBeInTheDocument();
+  });
+
   it("can test interactive elements", () => {
     render(<button onClick={() => console.log("clicked")}>Click me</button>);
 
