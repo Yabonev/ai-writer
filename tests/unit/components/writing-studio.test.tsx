@@ -139,8 +139,9 @@ describe("WritingStudio Component", () => {
     });
 
     // Should show keyboard shortcut hints
-    expect(screen.getByText("Word")).toBeInTheDocument();
+    expect(screen.getAllByText("Word")).toHaveLength(2);
     expect(screen.getByText("Para ↑")).toBeInTheDocument();
+    expect(screen.getByText("Para ↓")).toBeInTheDocument();
   });
 
   it("has proper ARIA labels and accessibility", () => {
@@ -171,7 +172,7 @@ describe("WritingStudio Component", () => {
     render(<WritingStudio />);
 
     // Check that main container takes full screen
-    const mainContainer = screen.getByTestId("editor-container").closest("div");
+    const mainContainer = screen.getByTestId("writing-studio-container");
     expect(mainContainer).toHaveClass("h-screen", "w-screen");
 
     // Check that editor is properly centered with constrained width

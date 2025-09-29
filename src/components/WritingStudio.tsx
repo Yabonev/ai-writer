@@ -50,7 +50,10 @@ Try using Ctrl+Home to jump to the beginning, Ctrl+End to jump to the end, and C
   };
 
   return (
-    <div className="relative h-screen w-screen bg-white">
+    <div
+      className="relative h-screen w-screen bg-white"
+      data-testid="writing-studio-container"
+    >
       {/* Main Editor - Constrained width in center with lots of whitespace */}
       <section
         aria-label="Text Editor"
