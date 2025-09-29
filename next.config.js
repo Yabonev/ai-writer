@@ -5,6 +5,18 @@
 import "./src/env.js";
 
 /** @type {import("next").NextConfig} */
-const config = {};
+const config = {
+  // Better error handling in development
+  onDemandEntries: {
+    maxInactiveAge: 25 * 1000,
+    pagesBufferLength: 2,
+  },
+  // Logging configuration
+  logging: {
+    fetches: {
+      fullUrl: false,
+    },
+  },
+};
 
 export default config;
