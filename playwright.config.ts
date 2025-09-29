@@ -30,8 +30,12 @@ export default defineConfig({
 
   // Automatically start dev server for E2E tests
   webServer: {
-    command: "npm run build && npm start", // Use production build for realistic testing
+    command: process.env.CI ? "npm run build && npm start" : "npm run dev", // Use dev server locally, production in CI
     port: 3000,
     reuseExistingServer: !process.env.CI, // Reuse server locally, fresh in CI
+    env: {
+      SKIP_ENV_VALIDATION: "true", // Skip env validation for testing
+      DATABASE_URL: "postgresql://test:test@localhost:5432/testdb", // Test database
+    },
   },
 });
