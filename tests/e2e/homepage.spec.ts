@@ -1,40 +1,47 @@
 import { test, expect } from "@playwright/test";
 
-// Comprehensive E2E tests for the homepage
-test.describe("Homepage E2E Tests", () => {
-  test("should load and display the homepage correctly", async ({ page }) => {
+// Comprehensive E2E tests for the AI Writer homepage
+test.describe("AI Writer Editor E2E Tests", () => {
+  test("should load and display the editor correctly", async ({ page }) => {
     await page.goto("/");
 
-    // Verify page loads and has correct title
-    await expect(page).toHaveTitle(/Create T3 App/);
+    // Verify page loads with editor
+    await expect(page.getByTestId("editor-container")).toBeVisible();
+    await expect(page.getByTestId("editor-input")).toBeVisible();
+    await expect(page.getByTestId("editor-placeholder")).toBeVisible();
 
-    // Check that main heading is visible
-    await expect(page.locator("h1")).toContainText("Create T3 App");
+    // Check placeholder text
+    await expect(page.getByTestId("editor-placeholder")).toContainText(
+      "Once upon a time...",
+    );
 
     // Verify page is fully loaded
     await page.waitForLoadState("networkidle");
   });
 
-  test("should have no accessibility violations", async ({ page }) => {
+  test("should have proper accessibility features", async ({ page }) => {
     await page.goto("/");
 
-    // Basic accessibility checks
-    const headings = page.locator("h1, h2, h3, h4, h5, h6");
-    const headingCount = await headings.count();
+    // Check editor has proper accessibility attributes
+    const editor = page.getByTestId("editor-input");
+    await expect(editor).toHaveAttribute("role", "textbox");
+    await expect(editor).toHaveAttribute("aria-label", "Text editor");
+    await expect(editor).toHaveAttribute("aria-multiline", "true");
 
-    // Should have at least one heading for screen readers
-    expect(headingCount).toBeGreaterThan(0);
+    // Check sections have proper ARIA labels
+    await expect(page.locator('[aria-label="Text Editor"]')).toBeVisible();
+    await expect(page.locator('[aria-label="Editor Controls"]')).toBeVisible();
+    await expect(
+      page.locator('[aria-label="Statistics Controls"]'),
+    ).toBeVisible();
 
-    // Check that images have alt text (if any exist)
-    const images = page.locator("img");
-    const imageCount = await images.count();
-
-    if (imageCount > 0) {
-      for (let i = 0; i < imageCount; i++) {
-        const img = images.nth(i);
-        await expect(img).toHaveAttribute("alt");
-      }
-    }
+    // Check buttons have proper labels
+    await expect(
+      page.locator('[aria-label="Insert sample text into the editor"]'),
+    ).toBeVisible();
+    await expect(
+      page.locator('[aria-label="Clear all text from the editor"]'),
+    ).toBeVisible();
   });
 
   test("should handle navigation correctly", async ({ page }) => {
